@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/21 14:14:01 by lmartin           #+#    #+#              #
-#    Updated: 2019/10/21 22:52:04 by ska              ###   ########.fr        #
+#    Updated: 2019/10/22 00:42:18 by ska              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ OBJ = $(SRC:.c=.o)
 
 FLAG = -Wall -Wextra -Werror
 
-all:			$(LIBFT) $(OBJ)
+all:			$(NAME)
+
+$(NAME):		$(LIBFT) $(OBJ)
 				ar rc $(NAME) $(LIBFT) $(OBJ)
 				ranlib $(NAME)
 
@@ -33,7 +35,7 @@ $(LIBFT):
 				gcc $(FLAG) -c $< -o $@
 
 test:			all
-				clang $(FLAG) -o ft_printf.out main.c $(NAME)
+				gcc $(FLAG) main.c $(NAME)
 
 clean:
 				/bin/rm -f $(OBJ)
