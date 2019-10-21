@@ -6,9 +6,11 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/21 14:14:01 by lmartin           #+#    #+#              #
-#    Updated: 2019/10/21 16:16:28 by lmartin          ###   ########.fr        #
+#    Updated: 2019/10/21 22:52:04 by ska              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+LIBFT = libft.a
 
 NAME = libft_printf.a
 
@@ -18,24 +20,26 @@ OBJ = $(SRC:.c=.o)
 
 FLAG = -Wall -Wextra -Werror
 
-all:			libft $(OBJ)
-				ar rc $(NAME) $(OBJ)
+all:			$(LIBFT) $(OBJ)
+				ar rc $(NAME) $(LIBFT) $(OBJ)
 				ranlib $(NAME)
 
-libft:
+$(LIBFT):
 				make -C ./libft/
 				cp ./libft/libft.a ./libft.a
+				make fclean -C ./libft/
 
 %.o: %.c
-				gcc $(FLAG) -c $< -o $@ -L. -lft
+				gcc $(FLAG) -c $< -o $@
 
 test:			all
-				gcc $(FLAG) -o ft_printf.out main.c -L. -lft_printf
+				clang $(FLAG) -o ft_printf.out main.c $(NAME)
 
 clean:
 				/bin/rm -f $(OBJ)
 
 fclean:			clean
 				/bin/rm -f $(NAME)
+				/bin/rm -f $(LIBFT)
 
 re:				fclean all
