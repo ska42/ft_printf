@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:31:09 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/21 22:32:52 by ska              ###   ########.fr       */
+/*   Updated: 2019/10/22 14:32:18 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,35 @@ int	ft_printf(const char *format, ...)
 	int n_args;
 	int len;
 	//char *a;
-	//va_list ap;
+	va_list ap;
 
+	va_start(ap, format);
 	len = ft_strlen(format);
 	n = -1;
 	n_args = 0;
 	while (format[++n])
-	{
 		if (n + 1 < len && format[n] == '%' && (format[n + 1] == 'c' ||
 format[n + 1] == 's' || format[n + 1] == 'p' || format[n + 1] == 'd' ||
 format[n + 1] == 'i' || format[n + 1] == 'u' || format[n + 1] == 'x' ||
 format[n + 1] == 'X'))
-		{
-			 n = n + 1 + 0 * n_args++;
-		}
+	{
+			n = n + 1 + 0 * n_args++;
+			if (format[n] == 'c')
+				printf("c\n");
+			if (format[n] == 's')
+				printf("s\n");
+			if (format[n] == 'p')
+				printf("p\n");
+			if (format[n] == 'd')
+				printf("d\n");
+			if (format[n] == 'i')
+				printf("i\n");
+			if (format[n] == 'u')
+				printf("u\n");
+			if (format[n] == 'x')
+				printf("x\n");
+			if (format[n] == 'X')
+				printf("X\n");
 	}
 	printf("NOMBRE ARGS : %i\n", n_args);
 	return (0);
