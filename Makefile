@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/21 14:14:01 by lmartin           #+#    #+#              #
-#    Updated: 2019/10/23 06:53:33 by lmartin          ###   ########.fr        #
+#    Updated: 2019/10/23 08:07:20 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ $(NAME):		$(OBJ)
 				gcc $(FLAG) -c $< -o $@
 
 test:			$(NAME)
-				gcc $(FLAG) -o $(OUT) $(MAIN) $(NAME)
+				gcc -o $(OUT) $(MAIN) $(NAME)
 
 norme:
 				norminette $(DIR_LIBFT)
