@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 15:28:12 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/21 22:44:00 by ska              ###   ########.fr       */
+/*   Updated: 2019/10/23 07:53:41 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 
 int main ()
 {
-	ft_printf("Ceci %s %t %c%p est un test %X%q%i%t%r%%%u%s");
-	
+	ft_printf("Ceci %i une phrase.\n", -2147483648);
 }

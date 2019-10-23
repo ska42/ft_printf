@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/21 14:14:01 by lmartin           #+#    #+#              #
-#    Updated: 2019/10/22 18:43:18 by lmartin          ###   ########.fr        #
+#    Updated: 2019/10/23 06:53:33 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRC	= ft_printf.c
 
 OUT = ft_printf.out
 
+MAIN = main.c
+
 OBJ = $(SRC:.c=.o)
 
 FLAG = -Wall -Wextra -Werror
@@ -40,15 +42,13 @@ $(NAME):		$(OBJ)
 %.o: %.c
 				gcc $(FLAG) -c $< -o $@
 
-test:			$(NAME) $(OUT)
+test:			$(NAME)
+				gcc $(FLAG) -o $(OUT) $(MAIN) $(NAME)
 
 norme:
 				norminette $(DIR_LIBFT)
 				norminette $(DIR_SRCS)
 				norminette $(DIR_HEADERS)
-
-$(OUT):
-				gcc $(FLAG) -o $(OUT) main.c $(NAME)
 
 clean:
 				/bin/rm -f $(OBJ)

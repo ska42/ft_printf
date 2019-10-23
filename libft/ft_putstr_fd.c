@@ -6,15 +6,18 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 15:20:43 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/13 04:16:26 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/23 07:52:06 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int		ft_putstr_fd(char *s, int fd)
 {
-	if (s)
-		while (*s)
-			write(fd, s++, 1);
+	int ret;
+
+	while (*s)
+		if ((ret = (int)write(fd, s++, 1)) <= 0)
+			return (ret);
+	return (1);
 }
