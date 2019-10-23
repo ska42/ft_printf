@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:31:09 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/23 10:19:59 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/23 10:42:40 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ format[n + 1] == 'X'))
 				if ((ret = ft_putstr_fd((char *)va_arg(ap, char *), 1)) <= 0)
 					return (ret);
 			if (format[n] == 'p')
-				va_arg(ap, void *);
+				if ((ret = ft_puthexa_pointer_fd((unsigned long)va_arg(ap, void *), 1)) <= 0)
+					return (ret);
 			if (format[n] == 'd')
 				va_arg(ap, double);
 			if (format[n] == 'i')

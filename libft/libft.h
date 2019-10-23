@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 16:04:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/23 10:19:46 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/23 10:40:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int				ft_putchar_fd(char c, int fd);
 void			ft_putendl_fd(char *s, int fd);
 int				ft_puthexa_capitalize_fd(unsigned int n, int fd);
 int				ft_puthexa_fd(unsigned int n, int fd);
+int				ft_puthexa_pointer_fd(unsigned long n, int fd);
 int				ft_putint_fd(int n, int fd);
 int				ft_putunsignedint_fd(unsigned int n, int fd);
 int				ft_putstr_fd(char *s, int fd);

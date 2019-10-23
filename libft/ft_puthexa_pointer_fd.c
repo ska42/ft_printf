@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthexa_capitalize_fd.c                         :+:      :+:    :+:   */
+/*   ft_puthexa_pointer_fd.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/23 10:09:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/23 10:35:13 by lmartin          ###   ########.fr       */
+/*   Created: 2019/10/23 10:35:04 by lmartin           #+#    #+#             */
+/*   Updated: 2019/10/23 10:40:41 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_puthexa_capitalize_fd(unsigned int n, int fd)
+int		ft_puthexa_pointer_fd(unsigned long n, int fd)
 {
 	int				ret;
-	char			str[9];
-	unsigned int	nnbr;
+	char			str[13];
+	unsigned long	nnbr;
 	int				size;
 
 	ret = 0;
@@ -32,10 +32,12 @@ int		ft_puthexa_capitalize_fd(unsigned int n, int fd)
 		if (nnbr % 16 < 10)
 			str[size] = (nnbr % 16) + 48;
 		else
-			str[size] = (nnbr % 16) + (65 - 10);
+			str[size] = (nnbr % 16) + (97 - 10);
 		nnbr /= 16;
 	}
 	size = -1;
+	ret += ft_putchar_fd('0', fd);
+	ret += ft_putchar_fd('x', fd);
 	while (str[++size])
 		ret += ft_putchar_fd(str[size], fd);
 	return (ret);
