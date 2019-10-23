@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 15:23:52 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/23 07:52:47 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/23 08:46:19 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		ft_putint_fd(int n, int fd)
 	char	c;
 	long	nnbr;
 
+	ret = 0;
 	nnbr = n;
 	if (nnbr < 0)
 	{
@@ -28,7 +29,7 @@ int		ft_putint_fd(int n, int fd)
 	if (nnbr != 0)
 	{
 		if (nnbr / 10 > 0)
-			if ((ret = ft_putint_fd(nnbr / 10, fd)) <= 0)
+			if ((ret += ft_putint_fd(nnbr / 10, fd)) <= 0)
 				return (ret);
 		c = nnbr % 10 + 48;
 		if ((ret = write(fd, &c, 1)) <= 0)
@@ -37,5 +38,5 @@ int		ft_putint_fd(int n, int fd)
 	if (n == 0)
 		if ((ret = write(fd, "0", 1)) <= 0)
 			return (ret);
-	return (1);
+	return (ret);
 }

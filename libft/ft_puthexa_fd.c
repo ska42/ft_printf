@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsignedint_fd.c                             :+:      :+:    :+:   */
+/*   ft_puthexa_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 15:23:52 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/23 08:45:46 by lmartin          ###   ########.fr       */
+/*   Created: 2019/10/23 08:55:01 by lmartin           #+#    #+#             */
+/*   Updated: 2019/10/23 09:50:55 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putunsignedint_fd(unsigned int n, int fd)
+int		ft_puthexa_fd(long n, int fd)
 {
 	int			ret;
-	char		c;
+	char		str[9];
 	long long	nnbr;
+	int			size;
 
 	ret = 0;
+	size = 0;
 	nnbr = n;
-	if (nnbr != 0)
+	while (n)
+		n /= 16 + 0 * size++;
+	str[size] = '\0';
+	while(size--)
 	{
-		if (nnbr / 10 > 0)
-			if ((ret += ft_putint_fd(nnbr / 10, fd)) <= 0)
-				return (ret);
-		c = nnbr % 10 + 48;
-		if ((ret = write(fd, &c, 1)) <= 0)
-			return (ret);
+		if (nnbr % 16 < 10)
+			str[size] = (nnbr % 16) + 48;
+		else
+			str[size] = (nnbr % 16) + (97 - 10);
+		nnbr /= 16;
 	}
-	if (n == 0)
-		if ((ret = write(fd, "0", 1)) <= 0)
-			return (ret);
+	size = -1;
+	while (str[++size])
+		ret += ft_putchar_fd(str[size], fd);
 	return (ret);
 }

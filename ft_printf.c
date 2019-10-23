@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:31:09 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/23 08:12:35 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/23 09:52:10 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ format[n + 1] == 'X'))
 				if ((ret = ft_putunsignedint_fd((unsigned int)va_arg(ap, unsigned int), 1)) <= 0)
 					return (ret);
 			if (format[n] == 'x')
-				printf("x\n");
+				if ((ret = ft_puthexa_fd((long)va_arg(ap, long), 1)) <= 0)
+					return (ret);
 			if (format[n] == 'X')
 				printf("X\n");
 			n_printed += ret;
