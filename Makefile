@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/21 14:14:01 by lmartin           #+#    #+#              #
-#    Updated: 2019/10/23 10:27:24 by lmartin          ###   ########.fr        #
+#    Updated: 2019/10/24 23:29:27 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(NAME):		$(OBJ)
 %.o: %.c
 				gcc $(FLAG) -c $< -o $@
 
-test:			$(NAME)
+test:			fclean $(NAME)
 				gcc -o $(OUT) $(MAIN) $(NAME)
 
 norme:

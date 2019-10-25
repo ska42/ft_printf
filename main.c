@@ -222,7 +222,7 @@ int main() {
 	printf("\033[0m;");
 
 		printf("\033[0;36m======================= TEST\033[0m 1\n");
-		i = printf("|%-10.10d|\n", -123);
+		i = printf("|%10.10d|\n", -123);
 			fflush(stdout);
 		printf("                                             \033[1;33mretour officiel   : %d\033[0m\n", i);
 		i = ft_printf("|%-10.10d|\n", -123);
