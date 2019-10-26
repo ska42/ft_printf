@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 15:23:52 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 21:27:42 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 22:31:59 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		print_unsignedint(int size, unsigned int n, char str[9], int flags[7])
 	while (!flags[2] && (!flags[3] || flags[4]) && i++ <= (int)(flags[1] -
 			(((flags[6] > size) ? flags[6] : size))))
 		ret += ft_putchar_fd(' ', flags[5], NULL);
-	if (!(i *= 0) && flags[1] && flags[3] && !flags[4])
+	if (!(i *= 0) && flags[1] && flags[3] && !flags[4] && !flags[2])
 		while (++i <= (int)((flags[1] - (size))))
 			ret += ft_putchar_fd('0', flags[5], NULL);
 	else if (flags[6])

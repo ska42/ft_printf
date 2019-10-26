@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 15:23:52 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 18:52:58 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 22:30:27 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		print_int(int size, int n, char str[9], int flags[7])
 			(((flags[6] > size) ? flags[6] : size) + sign)))
 		ret += ft_putchar_fd(' ', flags[5], NULL);
 	ret += (sign) ? ft_putchar_fd('-', flags[5], NULL) : 0;
-	if (!(i *= 0) && flags[1] && flags[3] && !flags[4])
+	if (!(i *= 0) && flags[1] && flags[3] && !flags[4] && !flags[2])
 		while (++i <= (int)((flags[1] - (size + sign))))
 			ret += ft_putchar_fd('0', flags[5], NULL);
 	else if (flags[6])
