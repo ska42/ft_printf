@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:31:09 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 19:05:49 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 19:32:01 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,60 +55,37 @@ int	ft_printf(const char *format, ...)
 		if (format[n] == '%')
 		{
 			flags[0] = 1;
-			while (format[n + flags[0]] &&
-				(format[n + flags[0]] == '-' ||
-				format[n + flags[0]] == '0' ||
-				format[n + flags[0]] == '.' ||
-				format[n + flags[0]] == '*' ||
-				ft_isdigit(format[n + flags[0]])))
+			while (format[n + flags[0]] && (format[n + flags[0]] == '-' ||
+format[n + flags[0]] == '0' || format[n + flags[0]] == '.' ||
+format[n + flags[0]] == '*' || ft_isdigit(format[n + flags[0]])))
 			{
-				if (format[n + flags[0]] == '-')
+				if (format[n + flags[0]] == '-' && ++flags[2])
+					flags[3] = 0;
+				if (format[n + flags[0]] == '0' && ++flags[3] &&
+format[n + flags[0] - 1] == '.')
+					flags[6] = 0 + 0 * --flags[3];
+				if (format[n + flags[0]] == '.' && ++flags[4] && flags[6])
 				{
-					if (flags[3])
-						flags[3] = 0;
-					flags[2]++;
+					flags[1] = (last == 6) ? flags[6] : flags[1];
+					flags[6] = 0;
 				}
-				if (format[n + flags[0]] == '0')
+				if (format[n + flags[0]] == '*' && ++flags[5])
 				{
 					if (format[n + flags[0] - 1] == '.')
 					{
-						flags[6] = 0;
-					}
-					else
-						flags[3]++;
-				}
-				if (format[n + flags[0]] == '.')
-				{
-					if (flags[6])
-					{
-						if (last == 6)
-							flags[1] = flags[6];
-						flags[6] = 0;
-					}
-					flags[4]++;
-				}
-				if (format[n + flags[0]] == '*')
-				{
-					if (format[n + flags[0] - 1] == '.')
-					{
-						if (flags[3])
-							flags[4] = 0;
+						flags[4] = (flags[3]) ? 0 : flags[4];
 						last = 6;
 						flags[6] = va_arg(ap, int);
-						if (!flags[6])
-							nega = 1;
-						else
-							nega = 0;
+						nega = (!flags[6]) ? 1 : 0;
 					}
 					else
 					{
 						last = 1;
 						flags[1] = va_arg(ap, int);
 					}
-
-					flags[5]++;
 				}
-				if ((format[n + flags[0]] != '0' || format[n + flags[0] - 1] == '.') && ft_isdigit(format[n + flags[0]]))
+				if ((format[n + flags[0]] != '0' ||
+format[n + flags[0] - 1] == '.') && ft_isdigit(format[n + flags[0]]))
 				{
 					if (format[n + flags[0] - 1] == '.')
 					{
@@ -122,70 +99,61 @@ int	ft_printf(const char *format, ...)
 						last = 1;
 						flags[1] = ft_atoi(&format[n + flags[0]]);
 					}
-					while (format[n + flags[0]] && ft_isdigit(format[n + flags[0]]))
+					while (format[n + flags[0]] &&
+ft_isdigit(format[n + flags[0]]))
 						flags[0]++;
 				}
 				else
-				{
 					flags[0]++;
-				}
 			}
 			flags[0]--;
 			if ((!flags[6] && flags[4]))
 				nega = 1;
-			if (flags[1] < 0)
-			{
-				if (flags[6] < 0)
-					flags[6] = 0;
-				flags[2]++;
-			}
+			if (flags[1] < 0 && ++flags[2] && flags[6] < 0)
+				flags[6] = 0;
 			flags[6] = (flags[6] < 0) ? -flags[6] : flags[6];
 			flags[1] = (flags[1] < 0) ? -flags[1] : flags[1];
 			if (nega)
 				flags[6] = -1;
-			if (format[n + flags[0]] &&
-				format[n + flags[0] + 1] &&
-				(format[n + flags[0] + 1] == 'c' ||
-				format[n + flags[0] + 1] == 's' ||
-				format[n + flags[0] + 1] == 'p' ||
-				format[n + flags[0] + 1] == 'd' ||
-				format[n + flags[0] + 1] == 'i' ||
-				format[n + flags[0] + 1] == 'u' ||
-				format[n + flags[0] + 1] == 'x' ||
-				format[n + flags[0] + 1] == 'X' ||
-				format[n + flags[0] + 1] == '%'))
+			if (format[n + flags[0]] && format[n + flags[0] + 1] &&
+(format[n + flags[0] + 1] == 'c' || format[n + flags[0] + 1] == 's' ||
+format[n + flags[0] + 1] == 'p' || format[n + flags[0] + 1] == 'd' ||
+format[n + flags[0] + 1] == 'i' || format[n + flags[0] + 1] == 'u' ||
+format[n + flags[0] + 1] == 'x' || format[n + flags[0] + 1] == 'X' ||
+format[n + flags[0] + 1] == '%'))
 			{
-					if (format[n + flags[0] + 1] == '%')
-						ret = ft_putchar_fd('%', 1, flags);
-					if (format[n + flags[0] + 1] == 'c')
-						ret = ft_putchar_fd((char)va_arg(ap, int), 1, flags);
-					if (format[n + flags[0] + 1] == 's')
-						ret = ft_putstr_fd((char *)va_arg(ap, char *), 1, flags);
-					if (format[n + flags[0] + 1] == 'p')
+				if (format[n + flags[0] + 1] == '%')
+					ret = ft_putchar_fd('%', 1, flags);
+				if (format[n + flags[0] + 1] == 'c')
+					ret = ft_putchar_fd((char)va_arg(ap, int), 1, flags);
+				if (format[n + flags[0] + 1] == 's')
+					ret = ft_putstr_fd((char *)va_arg(ap, char *), 1, flags);
+				if (format[n + flags[0] + 1] == 'p')
+				{
+					ptdr = (unsigned long)va_arg(ap, void *);
+					if (!flags[2] && !flags[3] && !flags[4] && !flags[5])
 					{
-						ptdr = (unsigned long)va_arg(ap, void *);
-						if (!flags[2] && !flags[3] && !flags[4] && !flags[5])
-						{
-							if (ptdr)
-								flags[1] = 0;
-							else if (flags[1])
-								flags[1]--;
-						}
-						ret = ft_puthexa_pointer_fd(ptdr, 1, flags);
+						flags[1] = (ptdr) ? 0 : flags[1];
+						flags[1] = (flags[1]) ? flags[1] - 1 : flags[1];
 					}
-					if (format[n + flags[0] + 1] == 'i' || format[n + flags[0] + 1] == 'd')
-						ret = ft_putint_fd((int)va_arg(ap, int), 1, flags);
-					if (format[n + flags[0] + 1] == 'u')
-						ret = ft_putunsignedint_fd((unsigned int)va_arg(ap, unsigned int), 1, flags);
-					if (format[n + flags[0] + 1] == 'x')
-						ret = ft_puthexa_fd((unsigned int)va_arg(ap, int), 1, flags);
-					if (format[n + flags[0] + 1] == 'X')
-						ret = ft_puthexa_capitalize_fd((unsigned int)va_arg(ap, int), 1, flags);
-					n_pr += ret;
+					ret = ft_puthexa_pointer_fd(ptdr, 1, flags);
+				}
+				if (format[n + flags[0] + 1] == 'i' ||
+format[n + flags[0] + 1] == 'd')
+					ret = ft_putint_fd((int)va_arg(ap, int), 1, flags);
+				if (format[n + flags[0] + 1] == 'u')
+					ret = ft_putunsignedint_fd(
+(unsigned int)va_arg(ap, unsigned int), 1, flags);
+				if (format[n + flags[0] + 1] == 'x')
+					ret = ft_puthexa_fd(
+(unsigned int)va_arg(ap, int), 1, flags);
+				if (format[n + flags[0] + 1] == 'X')
+					ret = ft_puthexa_capitalize_fd(
+(unsigned int)va_arg(ap, int), 1, flags);
+				n_pr += ret;
 			}
-			else
-				if (format[n + flags[0]] && format[n + flags[0] + 1])
-					n_pr += ft_putchar_fd(format[n + flags[0] + 1], 1, flags);
+			else if (format[n + flags[0]] && format[n + flags[0] + 1])
+				n_pr += ft_putchar_fd(format[n + flags[0] + 1], 1, flags);
 			n = n + flags[0] + 1;
 		}
 		else
