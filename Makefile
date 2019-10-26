@@ -6,7 +6,7 @@
 #    By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/21 14:14:01 by lmartin           #+#    #+#              #
-#    Updated: 2019/10/25 21:13:50 by lmartin          ###   ########.fr        #
+#    Updated: 2019/10/26 17:32:14 by lmartin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ DIR_LIBFT = ./libft/
 
 LIBFT = libft.a
 
-NAME = libft_printf.a
+NAME = libftprintf.a
 
 SRC	= ft_printf.c
 

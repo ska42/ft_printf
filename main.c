@@ -2591,8 +2591,6 @@ int main() {
 		printf("                                             \033[1;33mretour officiel   : %d\033[0m\n", i);
 		i = ft_printf("%*s|fin\n", -150, "coucou");
 		printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
-
-
 		// while (1)
 		// 	;
 	return (0);
