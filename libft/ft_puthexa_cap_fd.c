@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthexa_capitalize_fd.c                         :+:      :+:    :+:   */
+/*   ft_puthexa_cap_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 10:09:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 17:50:47 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 21:27:08 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		print_hexa_capitalize(int size, int n, char str[9], int flags[7])
 	return (ret);
 }
 
-int		ft_puthexa_capitalize_fd(unsigned int n, int fd, int flags[7])
+int		ft_puthexa_cap_fd(unsigned int n, int fd, int flags[7])
 {
 	int				i;
 	char			str[9];

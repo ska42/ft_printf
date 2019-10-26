@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 16:04:13 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/24 23:27:30 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 21:26:54 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *b, int c, size_t len);
 int				ft_putchar_fd(char c, int fd, int precision[7]);
 void			ft_putendl_fd(char *s, int fd);
-int				ft_puthexa_capitalize_fd(unsigned int n, int fd,
+int				ft_puthexa_cap_fd(unsigned int n, int fd,
 										int precision[7]);
 int				ft_puthexa_fd(unsigned int n, int fd, int precision[7]);
 int				ft_puthexa_pointer_fd(unsigned long n, int fd,
 										int precision[7]);
 int				ft_putint_fd(int n, int fd, int precision[7]);
-int				ft_putunsignedint_fd(unsigned int n, int fd, int precision[7]);
+int				ft_putuint_fd(unsigned int n, int fd, int precision[7]);
 int				ft_putstr_fd(char *s, int fd, int precision[7]);
 char			**ft_split(char const *s, char c);
 char			*ft_strchr(const char *s, int c);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsignedint_fd.c                             :+:      :+:    :+:   */
+/*   ft_putuint_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 15:23:52 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 18:50:02 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 21:27:42 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		print_unsignedint(int size, unsigned int n, char str[9], int flags[7])
 	return (ret);
 }
 
-int		ft_putunsignedint_fd(unsigned int n, int fd, int flags[7])
+int		ft_putuint_fd(unsigned int n, int fd, int flags[7])
 {
 	int				i;
 	char			str[12];
