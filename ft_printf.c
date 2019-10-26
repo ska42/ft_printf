@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:31:09 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/25 20:21:03 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 05:52:43 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,23 @@
 
 int	ft_printf(const char *format, ...)
 {
-	int b;
-	int b2;
-	int b3;
 	int last; // 1 or 6
 	int	n;
 	int n_printed;
+	int size;
 	int ret;
+	int nega;
 	int precision[7];
 	va_list ap;
 	//char *buffer;
 
-	b = 0;
-	b2 = 0;
-	b3 = 0;
 	last = 0;
-	va_start(ap, format);
 	n = -1;
 	n_printed = 0;
-	while (format[++n])
+	nega = 0;
+	va_start(ap, format);
+	size = ft_strlen(format);
+	while (++n < size)
 	{
 		precision[0] = 0;
 		precision[1] = 0;
@@ -59,58 +57,12 @@ int	ft_printf(const char *format, ...)
 		if (format[n] == '%')
 		{
 			precision[0] = 1;
-			while (format[n + precision[0]] == '-' || format[n + precision[0]] == '0'
-				|| format[n + precision[0]] == '.' || format[n + precision[0]] == '*')
-				{
-					if (format[n + precision[0]] == '-')
-						precision[2]++;
-					if (format[n + precision[0]] == '0')
-					{
-						if (format[n + precision[0] - 1] == '.')
-						{
-							precision[6] = 0;
-						}
-						else
-							precision[3]++;
-					}
-					if (format[n + precision[0]] == '.')
-					{
-						b = 1;
-						precision[4]++;
-					}
-					if (format[n + precision[0]] == '*')
-					{
-						if (format[n + precision[0] - 1] == '.')
-						{
-							last = 6;
-							precision[6] = va_arg(ap, int);
-						}
-						else
-						{
-							last = 1;
-							precision[1] = va_arg(ap, int);
-						}
-						precision[5]++;
-					}
-					precision[0]++;
-				}
-			if (ft_isdigit(format[n + precision[0]]))
-			{
-				if (format[n + precision[0] - 1] == '.')
-				{
-					last = 6;
-					precision[6] = ft_atoi(&format[n + precision[0]]);
-				}
-				else
-				{
-					last = 1;
-					precision[1] = ft_atoi(&format[n + precision[0]]);
-				}
-			}
-			while (ft_isdigit(format[n + precision[0]]))
-				precision[0]++;
-			while (format[n + precision[0]] == '-' || format[n + precision[0]] == '0'
-				|| format[n + precision[0]] == '.' || format[n + precision[0]] == '*')
+			while (format[n + precision[0]] &&
+				(format[n + precision[0]] == '-' ||
+				format[n + precision[0]] == '0' ||
+				format[n + precision[0]] == '.' ||
+				format[n + precision[0]] == '*' ||
+				ft_isdigit(format[n + precision[0]])))
 			{
 				if (format[n + precision[0]] == '-')
 					precision[2]++;
@@ -125,18 +77,19 @@ int	ft_printf(const char *format, ...)
 				}
 				if (format[n + precision[0]] == '.')
 				{
-					b2 = 1;
 					if (precision[6])
 					{
 						if (last == 6)
 							precision[1] = precision[6];
 						precision[6] = 0;
 					}
+					if (precision[3])
+						precision[3] = -1;
 					precision[4]++;
 				}
 				if (format[n + precision[0]] == '*')
 				{
-					if (format[n + precision[0] - 1] == '.' || !precision[4])
+					if (format[n + precision[0] - 1] == '.')
 					{
 						last = 6;
 						precision[6] = va_arg(ap, int);
@@ -146,56 +99,32 @@ int	ft_printf(const char *format, ...)
 						last = 1;
 						precision[1] = va_arg(ap, int);
 					}
+
 					precision[5]++;
 				}
-				precision[0]++;
-			}
-			/**
-			if (precision[6] && precision[4])
-			{
-				precision[1] = precision[6];
-				precision[6] = 0;
-			}**/
-			if (ft_isdigit(format[n + precision[0]]))
-				precision[6] = ft_atoi(&format[n + precision[0]]);
-			while (ft_isdigit(format[n + precision[0]]))
-				precision[0]++;
-			while (format[n + precision[0]] == '-' || format[n + precision[0]] == '0'
-				|| format[n + precision[0]] == '.' || format[n + precision[0]] == '*')
+				if (format[n + precision[0]] != '0' && ft_isdigit(format[n + precision[0]]))
 				{
-					if (format[n + precision[0]] == '-')
-						precision[2]++;
-					if (format[n + precision[0]] == '0')
+					if (format[n + precision[0] - 1] == '.')
 					{
-						if (format[n + precision[0] - 1] == '.')
-						{
-							precision[6] = 0;
-						}
-						else
-							precision[3]++;
+						last = 6;
+						precision[6] = ft_atoi(&format[n + precision[0]]);
 					}
-					if (format[n + precision[0]] == '.')
+					else
 					{
-						b = 1;
-						precision[4]++;
+						last = 1;
+						precision[1] = ft_atoi(&format[n + precision[0]]);
 					}
-					if (format[n + precision[0]] == '*')
-					{
-						if (format[n + precision[0] - 1] == '.')
-						{
-							last = 6;
-							precision[6] = va_arg(ap, int);
-						}
-						else
-						{
-							last = 1;
-							precision[1] = va_arg(ap, int);
-						}
-						precision[5]++;
-					}
+					while (format[n + precision[0]] && ft_isdigit(format[n + precision[0]]))
+						precision[0]++;
+				}
+				else
+				{
 					precision[0]++;
 				}
-						precision[0]--;
+			}
+			precision[0]--;
+			//if (format[n + precision[0]] != '0' && precision[3])
+				//precision[3] = -1;
 			//
 			/**
 			while (!precision[4] && precision[5]--)
@@ -214,25 +143,31 @@ int	ft_printf(const char *format, ...)
 				precision[6] = 0;
 				precision[2]++;
 			}**/
+			if ((!precision[6] && precision[4]))
+				nega = 1;
 			if (precision[1] < 0)
 			{
-				b3 = 1;
 				if (precision[6] < 0)
 					precision[6] = 0;
 				precision[2]++;
 			}
 			precision[6] = (precision[6] < 0) ? -precision[6] : precision[6];
 			precision[1] = (precision[1] < 0) ? -precision[1] : precision[1];
-			if ((!precision[6] && b2) || (!precision[6] && b && !b2 && !b3))
+			if (nega)
 				precision[6] = -1;
-			//printf("PADDING : %i\n", precision[1]);
-			//printf("PRECISION : %i\n", precision[6]);
 			//
-			if (format[n + precision[0] + 1] == 'c' || format[n + precision[0] + 1] == 's' ||
-				format[n + precision[0] + 1] == 'p' || format[n + precision[0] + 1] == 'd' ||
-				format[n + precision[0] + 1] == 'i' || format[n + precision[0] + 1] == 'u' ||
-				format[n + precision[0] + 1] == 'x' || format[n + precision[0] + 1] == 'X' ||
-				format[n + precision[0] + 1] == '%')
+			//printf("\nPADDING : %i - PRECISION : %i\n", precision[1], precision[6]);
+			if (format[n + precision[0]] &&
+				format[n + precision[0] + 1] &&
+				(format[n + precision[0] + 1] == 'c' ||
+				format[n + precision[0] + 1] == 's' ||
+				format[n + precision[0] + 1] == 'p' ||
+				format[n + precision[0] + 1] == 'd' ||
+				format[n + precision[0] + 1] == 'i' ||
+				format[n + precision[0] + 1] == 'u' ||
+				format[n + precision[0] + 1] == 'x' ||
+				format[n + precision[0] + 1] == 'X' ||
+				format[n + precision[0] + 1] == '%'))
 			{
 					if (format[n + precision[0] + 1] == '%')
 						if ((ret = ft_putchar_fd('%', 1, precision)) < 0)
@@ -263,8 +198,11 @@ int	ft_printf(const char *format, ...)
 			}
 			else
 			{
-				ret = ft_putchar_fd(format[n + precision[0] + 1], 1, precision);
-				n_printed += ret;
+				if (format[n + precision[0]] && format[n + precision[0] + 1])
+				{
+					ret = ft_putchar_fd(format[n + precision[0] + 1], 1, precision);
+					n_printed += ret;
+				}
 				n = n + precision[0] + 1;
 			}
 		}

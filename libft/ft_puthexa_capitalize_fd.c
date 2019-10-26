@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 10:09:36 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/25 03:44:36 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/26 05:57:49 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,27 @@ int		ft_puthexa_capitalize_fd(unsigned int n, int fd, int precision[7])
 			str[i] = (nnbr % 16) + (65 - 10);
 		nnbr /= 16;
 	}
+	if (precision[6] < 0)
+		size = 0;
 	i = 1;
-	if (precision && precision[3] && !precision[2] && precision[4])
-		while (i++ <= (int)(precision[1] - size))
+	if (precision && !precision[2] && precision[3] <= 0 && precision[1])
+		while (i++ <= (int)(precision[1] - ((precision[6] > size) ? precision[6] : size)))
 			ret += ft_putchar_fd(' ', fd, NULL);
 	i = 1;
-	if (precision && precision[6])
-		while (i++ <= (int)(precision[6] - (size)))
-			ret += ft_putchar_fd('0', fd, NULL);
+	if (precision && (precision[6] || precision[1]))
+	{
+		/**
+		if (precision[3] <= 0)
+		{
+			while (i++ <= (int)(precision[6] - (size)))
+				ret += ft_putchar_fd('0', fd, NULL);
+		}
+		else
+		{
+			while (i++ <= (int)(((precision[1] < precision[6] && precision[1]) || !precision[6]) ? precision[1] : precision[6]) - (size))
+				ret += ft_putchar_fd('0', fd, NULL);
+		}**/
+	}
 	if (precision[6] != -1 || n != 0)
 	{
 		size = -1;
