@@ -6,44 +6,42 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 10:35:04 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/27 19:36:39 by ska              ###   ########.fr       */
+/*   Updated: 2019/10/28 00:00:23 by lmartin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		print_hexa_pointer(int size, unsigned long n, char str[9], int flags[7])
+int		print_hexa_pointer(int size, unsigned long n, char str[9], int fl[7])
 {
 	int ret;
 	int i;
 
 	ret = 0;
-	i = 0;
-	if (!flags[6])
-		i = -1;
-	if (flags && !flags[2] && (!flags[3] || flags[4]))
-		while (++i <= (int)(flags[1] - (((flags[6] > size) ? flags[6] : size) + 2)))
-			ret += ft_putchar_fd(' ', flags[5], NULL);
-	ret += (int)write(flags[5], "0x", 2);
-	if (!(i *= 0) && flags[6])
-		while (++i <= (int)((flags[6] -
-			(size + ((!flags[2] && !flags[4]) ? 2 : 0)))))
-			ret += ft_putchar_fd('0', flags[5], NULL);
-	if (flags[1] && flags[3] && !flags[4])
-		while (++i <= (int)((flags[1] -
-			(size + ((!flags[2] && !flags[4]) ? 2 : 0)))))
-			ret += ft_putchar_fd('0', flags[5], NULL);
-	if (!(i *= 0) && (flags[6] != -1 || n != 0) && !(size *= 0))
+	i = (!fl[6]) ? -1 : 0;
+	if (fl && !fl[2] && (!fl[3] || fl[4]))
+		while (++i <= (int)(fl[1] - (((fl[6] > size) ? fl[6] : size) + 2)))
+			ret += ft_putchar_fd(' ', fl[5], NULL);
+	ret += (int)write(fl[5], "0x", 2);
+	if (!(i *= 0) && fl[6])
+		while (++i <= (int)((fl[6] -
+			(size + ((!fl[2] && !fl[4]) ? 2 : 0)))))
+			ret += ft_putchar_fd('0', fl[5], NULL);
+	if (fl[1] && fl[3] && !fl[4])
+		while (++i <= (int)((fl[1] -
+			(size + ((!fl[2] && !fl[4]) ? 2 : 0)))))
+			ret += ft_putchar_fd('0', fl[5], NULL);
+	if (!(i *= 0) && (fl[6] != -1 || n != 0) && !(size *= 0))
 		while (str[size])
-			ret += ft_putchar_fd(str[size++], flags[5], NULL);
-	flags[6] = ret;
-	if (flags && flags[2])
-		while (++i <= (int)(flags[1] - flags[6]))
-			ret += ft_putchar_fd(' ', flags[5], NULL);
+			ret += ft_putchar_fd(str[size++], fl[5], NULL);
+	fl[6] = ret;
+	if (fl && fl[2])
+		while (++i <= (int)(fl[1] - fl[6]))
+			ret += ft_putchar_fd(' ', fl[5], NULL);
 	return (ret);
 }
 
-int		ft_puthexa_pointer_fd(unsigned long n, int fd, int flags[7])
+int		ft_puthexa_pointer_fd(unsigned long n, int fd, int fl[7])
 {
 	int				i;
 	char			str[13];
@@ -67,7 +65,7 @@ int		ft_puthexa_pointer_fd(unsigned long n, int fd, int flags[7])
 			str[i] = (nnbr % 16) + (97 - 10);
 		nnbr /= 16;
 	}
-	flags[5] = fd;
-	size = (flags[6] < 0 && n == 0) ? 0 : size;
-	return (print_hexa_pointer(size, n, str, flags));
+	fl[5] = fd;
+	size = (fl[6] < 0 && n == 0) ? 0 : size;
+	return (print_hexa_pointer(size, n, str, fl));
 }
