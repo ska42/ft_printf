@@ -2593,5 +2593,14 @@ int main() {
 		printf("                                             \033[1;33mretour unofficiel : %d\033[0m\n", i);
 		// while (1)
 		// 	;
+		char	*str;
+
+		str = "yayo";
+		ft_printf("ft_printf = \"%0*.*d\"\n", 10, 5, 42);
+		printf("   printf = \"%0*.*d\"\n\n", 10, 5, 42);
+		printf("{%0*.*d}", 5, -15, 42); printf("|fin\n");
+		ft_printf("{%0*.*d}", 5, -15, 42); printf("|fin\n");
+		printf("valeur de retour = %d\n", ft_printf("ft_printf = \"%15p\"\n", str));
+		printf("valeur de retour = %d\n\n", printf("   printf = \"%15p\"\n", str));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:31:09 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 22:11:12 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/27 19:36:53 by ska              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@
 
 int	printf_choice(const char *format, va_list ap, int n, int fl[8])
 {
-	unsigned long	arg;
-
 	if (format[n + fl[0] + 1] == 'c')
 		return (ft_putchar_fd((char)va_arg(ap, int), 1, fl));
 	else if (format[n + fl[0] + 1] == 's')
 		return (ft_putstr_fd((char *)va_arg(ap, char *), 1, fl));
 	else if (format[n + fl[0] + 1] == 'p')
 	{
-		arg = (unsigned long)va_arg(ap, void *);
-		if (!fl[2] && !fl[3] && !fl[4] && !fl[5] && fl[1] && fl[1]-- && arg)
-			fl[1] = 0;
-		return (ft_puthexa_pointer_fd(arg, 1, fl));
+		if (!fl[2] && !fl[3] && !fl[4] && !fl[5] && fl[1])
+			fl[1]--;
+		return (ft_puthexa_pointer_fd((unsigned long)va_arg(ap, void *), 1, fl));
 	}
 	else if (format[n + fl[0] + 1] == 'i' || format[n + fl[0] + 1] == 'd')
 		return (ft_putint_fd((int)va_arg(ap, int), 1, fl));
@@ -54,9 +51,11 @@ int	while_part3(const char *format, int *n, int fl[8])
 		}
 		else if (!(fl[8] *= 0))
 		{
+			//printf("KO\n");
 			if (format[*n + fl[0] - 1] != '0')
 				fl[3] = 0;
 			fl[1] = ft_atoi(&format[*n + fl[0]]);
+			//printf("%i\n", fl[1]);
 		}
 		while (format[*n + fl[0]] && ft_isdigit(format[*n + fl[0]]))
 			fl[0]++;
@@ -75,22 +74,30 @@ int	while_part2(const char *format, va_list ap, int *n, int fl[8])
 		fl[3] = 0;
 	if (format[*n + fl[0]] == '0' && ++fl[3] && format[*n + fl[0] - 1] == '.')
 		fl[6] = 0 + 0 * --fl[3];
-	if (format[*n + fl[0]] == '.' && ++fl[4] && fl[6])
+	if (format[*n + fl[0]] == '.' && ++fl[4])
 	{
-		fl[1] = (fl[8] == 1) ? fl[6] : fl[1];
+		if (fl[6])
+		{
+			fl[1] = (fl[8] == 1) ? fl[6] : fl[1];
+		}
 		fl[6] = 0;
 	}
 	if (format[*n + fl[0]] == '*' && ++fl[5])
 	{
 		if (format[*n + fl[0] - 1] == '.')
 		{
-			fl[4] = (fl[3]) ? 0 : fl[4];
 			fl[8] = 1;
 			fl[6] = va_arg(ap, int);
+			if ((unsigned int)fl[6] > (unsigned int)fl[1] && fl[6] < 0)
+				fl[4] = (fl[3]) ? 0 : fl[4];
 			nega = (!fl[6]) ? 1 : 0;
 		}
 		else if (!(fl[8] *= 0))
+		{
+			if (format[*n + fl[0] - 1] != '0')
+				fl[3] = 0;
 			fl[1] = va_arg(ap, int);
+		}
 	}
 	return (nega + while_part3(format, n, fl));
 }

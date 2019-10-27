@@ -6,7 +6,7 @@
 /*   By: lmartin <lmartin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 10:35:04 by lmartin           #+#    #+#             */
-/*   Updated: 2019/10/26 18:53:02 by lmartin          ###   ########.fr       */
+/*   Updated: 2019/10/27 19:36:39 by ska              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int		print_hexa_pointer(int size, unsigned long n, char str[9], int flags[7])
 
 	ret = 0;
 	i = 0;
+	if (!flags[6])
+		i = -1;
 	if (flags && !flags[2] && (!flags[3] || flags[4]))
-		while (++i <= (int)(flags[1] - (((flags[6] < 0) ? 0 : flags[6]) + 2)))
+		while (++i <= (int)(flags[1] - (((flags[6] > size) ? flags[6] : size) + 2)))
 			ret += ft_putchar_fd(' ', flags[5], NULL);
 	ret += (int)write(flags[5], "0x", 2);
 	if (!(i *= 0) && flags[6])
